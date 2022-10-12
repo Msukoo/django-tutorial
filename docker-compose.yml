@@ -8,3 +8,20 @@ services:
       - 8000:8000 # localhost:docker
     volumes:
       - .:/app
+    depends_on:
+      - db #아래 db config 먼저 실행
+
+  db:
+    image: mysql/mysql-server:5.7.28
+#    platform: linux/amd64
+    restart: always
+    environment:
+      MYSQL_DATABASE: admin
+      MYSQL_USER: minsu
+      MYSQL_PASSWORD: minsu
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 13306:3306
